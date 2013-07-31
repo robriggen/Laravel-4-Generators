@@ -1,21 +1,26 @@
 @section('main')
 
-<h1>Create {{className}}</h1>
-
-{{ Form::open(['route' => '{{pluralModel}}.store']) }}
-	<ul>
-{{formElements}}
-		<li>
-			{{ Form::submit('Submit', array('class' => 'btn')) }}
-		</li>
-	</ul>
-{{ Form::close() }}
+<h1><!-- Lang::get('general.create') --> {{className}}</h1>
 
 @if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
+    <ul>
+        {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+    </ul>
 @endif
+
+<fieldset>
+    <legend>
+        <!-- Lang::get('replace-with-lang-path/{{pluralModel}}.create') -->
+    </legend>
+    {{ Form::open(['route' => '{{pluralModel}}.store']) }}
+        {{formElements}}
+        <div class="control-group">
+            <div class="controls">
+                {{ Form::submit(<!-- Lang::get('general.submit') -->, array('class' => 'btn')) }}
+            </div>
+        </div>
+    {{ Form::close() }}
+    </fieldset>
 
 @stop
 

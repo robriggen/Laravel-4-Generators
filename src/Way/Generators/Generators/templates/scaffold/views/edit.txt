@@ -1,22 +1,56 @@
-@extends('layouts.scaffold')
+<!-- Specify which layout content will be injected into -->
+@extends('layouts/libanalytics')
 
-@section('main')
+<!-- Prepend to the meta title here -->
+@section('title')
+    <!-- Lang::get('replace-with-lang-path/{{pluralModel}}.page-title') --> ::
+    @parent
+@stop
 
-<h1>Edit {{className}}</h1>
-{{ Form::model(${{model}}, array('method' => 'PATCH', 'route' => array('{{pluralModel}}.update', ${{model}}->id))) }}
-	<ul>
-{{formElements}}
-		<li>
-			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-			{{ link_to_route('{{pluralModel}}.show', 'Cancel', ${{model}}->id, array('class' => 'btn')) }}
-		</li>
-	</ul>
-{{ Form::close() }}
+<!-- Page specific css rules can go here. They won't show up elsewhere -->
+@section('additionalcss')
+    <!-- replace-with-css-links -->
+@stop
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
+<!-- This is main body of the page -->
+@section('content')
 
+<h1><!-- $institution->name --> - <!-- Lang::get('replace-with-lang-path/{{pluralModel}}.create-heading') --></h1>
+<h2><!-- Lang::get('replace-with-lang-path/{{pluralModel}}.create-subheading') --></h2>
+
+<fieldset>
+    <legend>
+        <!-- Lang::get('replace-with-lang-path/{{pluralModel}}.create') -->
+    </legend>
+
+    @if ($errors->any())
+        <ul>
+            {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+        </ul>
+    @endif
+
+    {{ Form::model(${{model}}, array('method' => 'PATCH', 'route' => array('{{pluralModel}}.update', ${{model}}->id))) }}
+        {{formElements}}
+        <div class="control-group">
+            <div class="controls">
+                {{ Form::submit(<!-- Lang::get('general.update') -->, array('class' => 'btn btn-info')) }}
+            {{ link_to_route('{{pluralModel}}.show', '<!-- Lang::get('general.cancel') -->', ${{model}}->id, array('class' => 'btn')) }}
+            </div>
+        </div>
+    {{ Form::close() }}
+</fieldset>
+
+@stop
+
+<!-- Page specific js files can be included here.
+    They won't be included elsewhere. -->
+@section('additionaljs')
+<!-- replace-with-js-links -->
+@stop
+
+<!-- Place any "on page" js code here. It won't be included elsewhere -->
+@section('footerscript')
+<script>
+<!-- replace-with-js-code -->
+</script>
 @stop

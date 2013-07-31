@@ -1,20 +1,27 @@
 @section('main')
 
-<h1>Edit {{className}}</h1>
-{{ Form::model(${{model}}, array('method' => 'PATCH', 'route' => array('{{pluralModel}}.update', ${{model}}->id))) }}
-	<ul>
-{{formElements}}
-		<li>
-			{{ Form::submit('Update', array('class' => 'btn btn-info')) }}
-			{{ link_to_route('{{pluralModel}}.show', 'Cancel', ${{model}}->id, array('class' => 'btn')) }}
-		</li>
-	</ul>
-{{ Form::close() }}
+<h1><!-- Lang::get('general.edit') --> {{className}}</h1>
 
-@if ($errors->any())
-	<ul>
-		{{ implode('', $errors->all('<li class="error">:message</li>')) }}
-	</ul>
-@endif
+<fieldset>
+    <legend>
+        <!-- Lang::get('replace-with-lang-path/{{pluralModel}}.create') -->
+    </legend>
+
+    @if ($errors->any())
+        <ul>
+            {{ implode('', $errors->all('<li class="error">:message</li>')) }}
+        </ul>
+    @endif
+
+    {{ Form::model(${{model}}, array('method' => 'PATCH', 'route' => array('{{pluralModel}}.update', ${{model}}->id))) }}
+        {{formElements}}
+        <div class="control-group">
+            <div class="controls">
+                {{ Form::submit(<!-- Lang::get('general.update') -->, array('class' => 'btn btn-info')) }}
+            {{ link_to_route('{{pluralModel}}.show', '<!-- Lang::get('general.cancel') -->', ${{model}}->id, array('class' => 'btn')) }}
+            </div>
+        </div>
+    {{ Form::close() }}
+</fieldset>
 
 @stop

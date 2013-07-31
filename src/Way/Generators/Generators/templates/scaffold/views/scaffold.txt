@@ -1,28 +1,77 @@
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
-		<style>
-			table form { margin-bottom: 0; }
-			form ul { margin-left: 0; list-style: none; }
-			.error { color: red; font-style: italic; }
-			body { padding-top: 20px; }
-		</style>
-	</head>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>
+            @section('title')
+            LibAnalytics
+            @show
+        </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-	<body>
+        <!-- the styles -->
+        {{ HTML::style('assets/bootstrap/css/bootstrap.min.css') }}
+        {{ HTML::style('assets/bootstrap/css/bootstrap-responsive.min.css') }}
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+        @foreach (Asset::getCompiledStyles() as $url)
+            <link href="{{ $url }}" rel="stylesheet">
+        @endforeach
+        <style type="text/css">
+          body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+          }
+        </style>
+        @yield('additionalcss')
 
-		<div class="container">
-			@if (Session::has('message'))
-				<div class="flash alert">
-					<p>{{ Session::get('message') }}</p>
-				</div>
-			@endif
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="../assets/js/html5shiv.js"></script>
+        <![endif]-->
 
-			@yield('main')
-		</div>
+        <!-- fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="shortcut icon" href="http://lgimages.s3.amazonaws.com/data/imagemanager/18760/lan-favicon.ico">
+    </head>
 
-	</body>
+    <body>
 
+        <!-- navigation -->
+        @include('libanalytics/nav')
+
+        <!-- notifications -->
+        @include('notifications')
+
+        <!-- main page content -->
+        <div class="container">
+
+        @yield('content')
+
+        <hr>
+
+        <!-- the footer -->
+        @include('libanalytics/footer')
+
+        </div>
+
+        <!-- the javascript -->
+        @foreach (Asset::getCompiledScripts() as $url)
+            <script src="{{ $url }}"></script>
+        @endforeach
+
+        @yield('additionaljs')
+
+        {{ HTML::script('assets/bootstrap/js/bootstrap.min.js') }}
+
+        <script type="text/javascript">
+            @yield('footerscript')
+        </script>
+
+
+    </body>
 </html>

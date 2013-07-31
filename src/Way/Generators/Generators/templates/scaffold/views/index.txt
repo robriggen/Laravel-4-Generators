@@ -1,29 +1,58 @@
-@extends('layouts.scaffold')
+<!-- Specify which layout content will be injected into -->
+@extends('layouts/libanalytics')
 
-@section('main')
+<!-- Prepend to the meta title here -->
+@section('title')
+    <!-- Lang::get('replace-with-lang-path/{{pluralModel}}.page-title') --> ::
+    @parent
+@stop
 
-<h1>All {{formalModel}}</h1>
+<!-- Page specific css rules can go here. They won't show up elsewhere -->
+@section('additionalcss')
+    <!-- replace-with-css-links -->
+@stop
 
-<p>{{ link_to_route('{{pluralModel}}.create', 'Add new {{model}}') }}</p>
+<!-- This is main body of the page -->
+@section('content')
+
+<h1><!-- $institution->name --> - <!-- Lang::get('replace-with-lang-path/{{pluralModel}}.index-heading') --></h1>
+<h2><!-- Lang::get('replace-with-lang-path/{{pluralModel}}.index-subheading') --></h2>
+
+<div class="pull-right">
+    <i class="circle_plus"></i>{{ link_to_route('{{pluralModel}}.index', '<!-- Lang::get('general.add-item') --> {{pluralModel}}') }}
+</div>
 
 @if (${{pluralModel}}->count())
-	<table class="table table-striped table-bordered">
-		<thead>
-			<tr>
-				{{headings}}
-			</tr>
-		</thead>
+    <table class="table table-striped table-bordered table-condensed">
+        <thead>
+            <tr>
+                {{headings}}
+            </tr>
+        </thead>
 
-		<tbody>
-			@foreach (${{pluralModel}} as ${{model}})
-				<tr>
-					{{fields}}
-				</tr>
-			@endforeach
-		</tbody>
-	</table>
+        <tbody>
+            @foreach (${{pluralModel}} as ${{model}})
+                <tr>
+                    {{fields}}
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 @else
-	There are no {{pluralModel}}
+    There are no {{pluralModel}}
 @endif
 
+@stop
+
+<!-- Page specific js files can be included here.
+    They won't be included elsewhere. -->
+@section('additionaljs')
+<!-- replace-with-js-links -->
+@stop
+
+<!-- Place any "on page" js code here. It won't be included elsewhere -->
+@section('footerscript')
+<script>
+<!-- replace-with-js-code -->
+</script>
 @stop
