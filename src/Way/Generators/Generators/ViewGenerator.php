@@ -79,6 +79,10 @@ class ViewGenerator extends Generator {
         $headings = array_map(function($field) {
             return '<th>' . ucwords($field) . '</th>';
         }, array_keys($fields));
+        // for the button columns
+        $headings[] = '<th></th>';
+        // for the button columns
+        $headings[] = '<th></th>';
 
         // And then the rows, themselves
         $fields = array_map(function($field) use ($model) {
